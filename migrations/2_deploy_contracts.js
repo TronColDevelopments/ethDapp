@@ -9,11 +9,11 @@ module.exports = async function (deployer, network, accounts) {
     await deployer.deploy(RWD);
     const rwd = await RWD.deployed();
     //Deploy DecentralBank Contract
-    await deployer.deploy(decentralBank);
+    await deployer.deploy(decentralBank, rwd.address, tether.address)
     const DecentralBank = await decentralBank.deployed();
     //transfer all to decentral bank
     await rwd.transfer(DecentralBank.address, "1000000000000000000000000");
 
     //Distribute 100 Tether to onvestors
-    await tether.transfer(accounts[1], "1000000000000000000");
+    await tether.transfer(accounts[1], "100000000000000000000");
 };
